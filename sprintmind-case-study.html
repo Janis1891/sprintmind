@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SprintMind — Full Case Study by Janyn Correa</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F4F1FF;--dark:#2A1F6E;--violet:#7F77DD;
+  --lav:#C4B8F4;--green:#1D9E75;--amber:#EF9F27;
+  --muted:#6B6A78;--border:rgba(42,31,110,0.1);--white:#fff;--coral:#E8706A;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--dark);overflow-x:hidden}
+
+/* ── NAV ────────────────────────────────────────────────── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px;background:rgba(244,241,255,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo img{width:130px}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--dark)}
+.nav-cta{background:var(--violet);color:#fff;font-family:inherit;font-size:13px;font-weight:500;padding:9px 20px;border-radius:8px;text-decoration:none;transition:background .2s}
+.nav-cta:hover{background:#6a62c8}
+
+/* ── SCROLL REVEAL ───────────────────────────────────────── */
+.r{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.r.on{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
+@keyframes shimmer{0%{background-position:200% 50%}100%{background-position:-200% 50%}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes glowPulse{0%,100%{box-shadow:0 32px 80px rgba(0,0,0,.5),0 0 0 1px rgba(127,119,221,.1)}50%{box-shadow:0 32px 100px rgba(0,0,0,.6),0 0 40px rgba(127,119,221,.15),0 0 0 1px rgba(127,119,221,.2)}}
+@keyframes slideInLeft{from{opacity:0;transform:translateX(-32px)}to{opacity:1;transform:translateX(0)}}
+@keyframes slideInRight{from{opacity:0;transform:translateX(32px)}to{opacity:1;transform:translateX(0)}}
+@keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes countBar{from{width:0%}to{width:var(--w)}}
+
+/* ── LAYOUT ──────────────────────────────────────────────── */
+section{padding:100px 48px}
+.container{max-width:956px;margin:0 auto}
+.label-tag{font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--violet);margin-bottom:16px;display:block}
+.label-tag.lt{color:var(--lav)}
+.label-tag.green{color:var(--green)}
+.label-tag.amber{color:var(--amber)}
+.section-h{font-size:clamp(32px,4vw,52px);font-weight:700;line-height:1.1;letter-spacing:-.5px;margin-bottom:16px}
+.section-h em{color:var(--violet);font-style:normal}
+.section-h em.green{color:var(--green)}
+.section-h em.coral{color:var(--coral)}
+.section-p{font-size:16px;font-weight:300;color:var(--muted);line-height:1.8;max-width:660px}
+
+/* ── HERO ────────────────────────────────────────────────── */
+#hero{min-height:100vh;background:var(--dark);display:flex;align-items:center;padding:100px 48px 80px;position:relative;overflow:hidden}
+.hero-glow{position:absolute;border-radius:50%;background:rgba(127,119,221,0.07);pointer-events:none}
+.hero-glow.g1{width:800px;height:800px;top:-250px;right:-100px}
+.hero-glow.g2{width:450px;height:450px;bottom:-150px;left:-100px}
+.hero-glow.g3{width:300px;height:300px;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(127,119,221,0.04)}
+.hero-split{position:relative;z-index:1;width:100%;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.hero-inner{min-width:0}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(127,119,221,0.15);border:1px solid rgba(196,184,244,0.25);border-radius:20px;padding:6px 16px;margin-bottom:40px;animation:fadeUp .8s ease forwards}
+.hero-eyebrow-dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s ease-in-out infinite}
+.hero-eyebrow span{font-size:12px;font-weight:500;color:var(--lav);letter-spacing:.5px}
+.hero-h1{font-size:clamp(36px,4.5vw,68px);font-weight:700;color:#fff;line-height:1.05;letter-spacing:-2px;margin-bottom:28px;animation:slideInLeft .9s .1s ease both}
+.hero-h1 em{color:var(--lav);font-style:normal}
+.hero-sub{font-size:17px;font-weight:300;color:rgba(255,255,255,.55);line-height:1.7;margin-bottom:48px;animation:fadeUp .8s .3s ease both}
+.hero-meta{display:flex;gap:0;animation:fadeUp .8s .45s ease both;border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden}
+.meta-block{flex:1;padding:16px 20px;border-right:1px solid rgba(255,255,255,.08)}
+.meta-block:last-child{border-right:none}
+.meta-lbl{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:1.3px;color:rgba(255,255,255,.3);margin-bottom:5px}
+.meta-val{font-size:13px;font-weight:500;color:rgba(255,255,255,.75)}
+/* Hero mockup */
+.hero-mockup{animation:slideInRight .9s .2s ease both;position:relative}
+.hero-mockup-frame{background:#1a1433;border-radius:14px;overflow:hidden;border:1px solid rgba(196,184,244,0.15);animation:glowPulse 4s ease-in-out infinite;transform-origin:center}
+.hero-mockup-bar{background:#0f0d1a;padding:12px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,.06)}
+.hero-mockup-dots{display:flex;gap:6px}
+.hero-mockup-dots span{width:10px;height:10px;border-radius:50%}
+.hero-mockup-dots span:nth-child(1){background:#FF5F57}
+.hero-mockup-dots span:nth-child(2){background:#FFBD2E}
+.hero-mockup-dots span:nth-child(3){background:#28C840}
+.hero-mockup-url{flex:1;background:rgba(255,255,255,.06);border-radius:5px;padding:5px 12px;font-size:10px;color:rgba(255,255,255,.25);font-family:monospace;margin:0 12px}
+.hero-mockup img{display:block;width:100%}
+.hero-mockup-float{animation:float 6s ease-in-out infinite}
+.hero-glow-pill{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);background:rgba(127,119,221,0.15);border:1px solid rgba(196,184,244,0.2);border-radius:20px;padding:6px 18px;font-size:11px;color:var(--lav);white-space:nowrap;font-weight:500;backdrop-filter:blur(8px)}
+.hero-scroll{position:absolute;bottom:40px;left:48px;display:flex;align-items:center;gap:12px}
+.hero-scroll-line{width:40px;height:1px;background:rgba(255,255,255,.2)}
+.hero-scroll span{font-size:10px;color:rgba(255,255,255,.2);letter-spacing:1.5px;text-transform:uppercase}
+@media(max-width:900px){.hero-split{grid-template-columns:1fr}.hero-mockup{display:none}}
+
+/* ── CONTEXT STRIP ───────────────────────────────────────── */
+#context{background:var(--white);padding:60px 48px}
+.context-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.context-q{font-size:clamp(24px,3vw,36px);font-weight:700;line-height:1.2;letter-spacing:-.5px}
+.context-q em{color:var(--violet);font-style:normal}
+.context-body{font-size:15px;font-weight:300;color:var(--muted);line-height:1.85}
+.context-body p+p{margin-top:14px}
+.role-tag{display:inline-flex;align-items:center;gap:8px;margin-top:24px;padding:8px 14px;background:var(--bg);border-radius:8px;border:1px solid var(--border);font-size:13px;font-weight:500}
+
+/* ── PULL QUOTE ──────────────────────────────────────────── */
+.pq-section{background:var(--dark);padding:72px 48px}
+.pq-inner{max-width:956px;margin:0 auto}
+.pq-mark{font-size:80px;font-weight:700;color:var(--violet);line-height:.8;margin-bottom:20px;font-family:Georgia,serif;opacity:.7}
+.pq-text{font-size:clamp(20px,2.5vw,30px);font-weight:300;color:#fff;line-height:1.55;letter-spacing:-.3px}
+.pq-text em{color:var(--lav);font-style:normal;font-weight:500}
+.pq-source{display:flex;align-items:center;gap:10px;margin-top:28px}
+.pq-dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0}
+.pq-source span{font-size:12px;color:rgba(255,255,255,.35);letter-spacing:.3px}
+/* PROCESS */
+#process{background:var(--bg)}
+.phases{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin:48px 0 56px}
+.phase{background:var(--white);border:1px solid var(--border);padding:24px 20px;text-align:center}
+.phase:first-child{border-radius:12px 0 0 12px}
+.phase:last-child{border-radius:0 12px 12px 0}
+.phase-n{font-size:10px;font-weight:700;color:var(--violet);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
+.phase-name{font-size:15px;font-weight:700;color:var(--dark)}
+.process-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.pc{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:28px 24px}
+.pc-icon{width:36px;height:36px;margin-bottom:16px;display:flex;align-items:center;justify-content:flex-start}
+.pc-phase{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--violet);margin-bottom:8px}
+.pc-title{font-size:15px;font-weight:700;color:var(--dark);margin-bottom:10px;line-height:1.3}
+.pc-body{font-size:13px;font-weight:300;color:var(--muted);line-height:1.65;margin-bottom:16px}
+.pc-tag{display:inline-block;font-size:10px;font-weight:500;color:var(--green);background:rgba(29,158,117,.08);border:1px solid rgba(29,158,117,.2);border-radius:20px;padding:3px 10px}
+
+/* PROCESS ZIGZAG */
+.proc-zigzag{display:flex;flex-direction:column;gap:80px;margin-top:64px}
+.proc-zig{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.proc-zig.flip .proc-visual{order:-1}
+.proc-text{}
+.proc-phase-n{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--violet);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.proc-phase-n::before{content:'';display:block;width:24px;height:2px;background:var(--violet);border-radius:2px}
+.proc-h{font-size:clamp(20px,2.5vw,28px);font-weight:700;color:var(--dark);line-height:1.25;margin-bottom:12px}
+.proc-p{font-size:15px;font-weight:300;color:var(--muted);line-height:1.8;margin-bottom:20px}
+.proc-tag{display:inline-block;font-size:11px;font-weight:500;color:var(--green);background:rgba(29,158,117,.08);border:1px solid rgba(29,158,117,.2);border-radius:20px;padding:4px 14px}
+.proc-visual{border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:0 12px 40px rgba(42,31,110,.08);background:var(--white)}
+/* Research visual — benchmark table */
+.bench{padding:24px}
+.bench-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--violet);margin-bottom:16px}
+.bench-table{width:100%;border-collapse:collapse}
+.bench-table th{font-size:10px;font-weight:600;color:var(--muted);text-align:left;padding:6px 8px;border-bottom:1px solid var(--border)}
+.bench-table td{font-size:12px;padding:8px;border-bottom:1px solid rgba(42,31,110,.05)}
+.bench-table tr:last-child td{border-bottom:none}
+.bench-table tr.highlight td{background:rgba(127,119,221,.06);font-weight:600;color:var(--dark)}
+.bench-check{color:var(--green);font-weight:700}
+.bench-cross{color:#ccc}
+.bench-partial{color:var(--amber)}
+/* Concept visual — pattern cards */
+.concept-vis{padding:24px;display:flex;flex-direction:column;gap:10px}
+.concept-vis-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--violet);margin-bottom:6px}
+.pat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.pat-mini{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 8px}
+.pat-mini-n{font-size:9px;font-weight:700;color:var(--violet);margin-bottom:4px}
+.pat-mini-name{font-size:10px;font-weight:600;color:var(--dark);line-height:1.3}
+.pat-mini.active{background:rgba(127,119,221,.12);border-color:rgba(127,119,221,.3)}
+/* Design visual — token system */
+.token-vis{padding:24px;display:flex;flex-direction:column;gap:16px}
+.token-vis-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--violet)}
+.token-colors{display:flex;gap:6px}
+.token-swatch{flex:1;height:40px;border-radius:8px;position:relative}
+.token-swatch-lbl{font-size:8px;color:var(--muted);margin-top:4px;text-align:center}
+.token-type{display:flex;flex-direction:column;gap:6px}
+.token-type-row{display:flex;align-items:baseline;gap:12px}
+.token-type-val{color:var(--dark);font-weight:700}
+.token-type-meta{font-size:11px;color:var(--muted)}
+.token-components{display:flex;gap:8px;flex-wrap:wrap}
+.token-comp{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:11px;color:var(--dark)}
+/* Testing visual — round cards */
+.test-vis{padding:24px;display:flex;flex-direction:column;gap:10px}
+.test-vis-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--violet);margin-bottom:6px}
+.test-round-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.test-round-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.test-round-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--violet)}
+.test-round-outcome{font-size:10px;font-weight:600;color:var(--green)}
+.test-round-title{font-size:13px;font-weight:600;color:var(--dark);margin-bottom:4px}
+.test-round-body{font-size:11px;color:var(--muted);line-height:1.5}
+@media(max-width:768px){.proc-zig{grid-template-columns:1fr}.proc-zig .proc-visual{order:-1!important}}
+
+/* ── RESEARCH ────────────────────────────────────────────── */
+#research{background:var(--bg)}
+.research-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;margin-bottom:64px}
+.research-text{}
+.research-h{font-size:clamp(22px,2.8vw,34px);font-weight:700;line-height:1.2;margin-bottom:16px;letter-spacing:-.5px}
+.research-p{font-size:15px;font-weight:300;color:var(--muted);line-height:1.8;margin-bottom:20px}
+.proc-tag{display:inline-block;font-size:11px;font-weight:500;color:var(--green);background:rgba(29,158,117,.08);border:1px solid rgba(29,158,117,.2);border-radius:20px;padding:4px 14px}
+/* Benchmark table */
+.bench-card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:24px;box-shadow:0 8px 32px rgba(42,31,110,.06)}
+.bench-card-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--violet);margin-bottom:16px}
+.bench-table{width:100%;border-collapse:collapse}
+.bench-table th{font-size:10px;font-weight:600;color:var(--muted);text-align:left;padding:7px 8px;border-bottom:1px solid var(--border)}
+.bench-table td{font-size:12px;padding:9px 8px;border-bottom:1px solid rgba(42,31,110,.05)}
+.bench-table tr:last-child td{border-bottom:none}
+.bench-table tr.hl td{background:rgba(127,119,221,.07);font-weight:600;color:var(--dark)}
+.bench-check{color:var(--green);font-weight:700}
+.bench-cross{color:#ccc}
+.bench-partial{color:var(--amber);font-weight:500}
+/* User insight cards */
+.insight-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px}
+.insight-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:20px}
+.insight-card-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--violet);margin-bottom:8px}
+.insight-card-val{font-size:13px;font-weight:400;color:var(--dark);line-height:1.6}
+
+/* ── INSIGHT MOMENT ─────────────────────────────────────── */
+#insight{background:var(--dark);padding:100px 48px}
+.insight-inner{max-width:956px;margin:0 auto}
+.insight-eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--lav);margin-bottom:32px;display:block}
+.insight-h{font-size:clamp(28px,4vw,52px);font-weight:700;color:#fff;line-height:1.1;letter-spacing:-1px;margin-bottom:28px}
+.insight-h em{color:var(--lav);font-style:normal}
+.insight-body{font-size:17px;font-weight:300;color:rgba(255,255,255,.6);line-height:1.75;margin-bottom:40px}
+.insight-box{background:rgba(127,119,221,.12);border:1px solid rgba(127,119,221,.2);border-radius:16px;padding:32px}
+.insight-box p{font-size:18px;font-weight:300;color:rgba(255,255,255,.85);line-height:1.7;font-style:italic;margin-bottom:12px}
+.insight-box cite{font-size:11px;color:var(--lav);font-style:normal;letter-spacing:.5px}
+
+/* ── DESIGN ──────────────────────────────────────────────── */
+#design{    background-color: rgb(244, 241, 255);}
+.design-two{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;margin-bottom:64px}
+.design-body{font-size:15px;font-weight:300;color:var(--muted);line-height:1.8}
+.design-body p+p{margin-top:14px}
+.design-h{font-size:clamp(22px,2.8vw,34px);font-weight:700;line-height:1.2;margin-bottom:16px;letter-spacing:-.5px}
+/* Brand attributes */
+.brand-attrs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px}
+.brand-attr{background:rgba(127,119,221,.07);border:1px solid rgba(127,119,221,.15);border-radius:10px;padding:12px 14px}
+.brand-attr-n{font-size:9px;font-weight:700;color:var(--violet);margin-bottom:3px}
+.brand-attr-name{font-size:12px;font-weight:600;color:var(--dark)}
+/* Visual direction */
+.direction-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+.direction-item{border-radius:10px;overflow:hidden;border:1px solid var(--border);position:relative}
+.direction-item.selected{border:2px solid var(--violet)}
+.direction-item img{width:100%;height:72px;object-fit:cover;display:block}
+.direction-lbl{padding:6px 10px;background:#fff;font-size:9px;font-weight:600;color:var(--muted);display:flex;align-items:center;justify-content:space-between}
+.direction-lbl .badge{font-size:8px;background:var(--violet);color:#fff;padding:1px 6px;border-radius:4px}
+/* Token system */
+.token-vis{padding:24px;background:var(--bg);border-radius:16px;border:1px solid var(--border)}
+.token-vis-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--violet);margin-bottom:16px}
+.token-swatches{display:flex;gap:6px;margin-bottom:20px}
+.swatch{height:44px;flex:1;border-radius:8px}
+.swatch-lbl{font-size:8px;color:var(--muted);margin-top:4px;text-align:center}
+.token-type-rows{display:flex;flex-direction:column;gap:6px}
+.ttr{display:flex;align-items:baseline;gap:12px}
+.ttr-val{color:var(--dark);font-weight:700;font-size:14px}
+.ttr-meta{font-size:11px;color:var(--muted)}
+
+/* ── PRODUCT — exact from index.html ─────────────────────── */
+#product{background:var(--white)}
+.flow-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:32px}
+.flow-step{padding:24px 20px;border-radius:14px;border:2px solid var(--border);background:var(--white);cursor:pointer;transition:border-color .2s,box-shadow .2s}
+.flow-step:hover{border-color:var(--violet)}
+.flow-step.active{border-color:var(--violet);background:var(--bg);box-shadow:0 4px 20px rgba(127,119,221,.15)}
+.flow-step.active::after{content:'';display:block;height:2px;background:var(--violet);border-radius:2px;margin-top:12px;animation:stepProgress 3s linear}
+@keyframes stepProgress{from{width:0%}to{width:100%}}
+.flow-step-n{font-size:11px;font-weight:700;color:var(--violet);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+.flow-step h3{font-size:15px;font-weight:700;color:var(--dark);margin-bottom:8px}
+.flow-step p{font-size:13px;color:var(--muted);line-height:1.6}
+.step-mockups{position:relative}
+.step-panel{display:none;animation:panelFade .35s ease}
+.step-panel.active{display:block}
+@keyframes panelFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.mockup{border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:0 24px 64px rgba(42,31,110,.12)}
+.mockup-bar{background:#f1f0f5;padding:10px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border)}
+.m-dots{display:flex;gap:5px}
+.m-dot{width:10px;height:10px;border-radius:50%}
+.m-dot.r{background:#FF5F57}.m-dot.y{background:#FEBC2E}.m-dot.g{background:#28C840}
+.m-url{flex:1;background:#e8e6f0;border-radius:6px;padding:4px 12px;font-size:11px;color:#888;text-align:center;max-width:300px;margin:0 auto}
+
+/* ── FLAG SYSTEM ─────────────────────────────────────────── */
+#flags{background:var(--dark);}
+.flags-two{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+.flags-h{font-size:clamp(28px,3.5vw,48px);font-weight:700;color:#fff;line-height:1.1;letter-spacing:-.8px;margin-bottom:20px}
+.flags-h em{color:var(--lav);font-style:normal}
+.flags-body{font-size:16px;font-weight:300;color:rgba(255,255,255,.6);line-height:1.75;margin-bottom:24px}
+.flags-quote{background:rgba(127,119,221,.12);border:1px solid rgba(127,119,221,.2);border-radius:14px;padding:24px}
+.flags-quote p{font-size:15px;font-weight:300;color:rgba(255,255,255,.8);line-height:1.7;font-style:italic;margin-bottom:8px}
+.flags-quote cite{font-size:10px;color:var(--lav);font-style:normal;letter-spacing:.5px}
+/* Patterns grid */
+.patterns-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.pat{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:18px}
+.pat-n{font-size:10px;font-weight:700;color:var(--lav);letter-spacing:1px;margin-bottom:6px}
+.pat-name{font-size:13px;font-weight:700;color:#fff;margin-bottom:5px}
+.pat-desc{font-size:11px;color:rgba(255,255,255,.45);line-height:1.5}
+
+/* ── AI & JUDGEMENT ─────────────────────────────────────── */
+#synergy{background:var(--white)}
+.synergy-top{margin-bottom:48px}
+.synergy-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+.syn-table{border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.syn-header{display:grid;grid-template-columns:1fr 1fr;background:var(--bg)}
+.syn-col-hd{padding:14px 20px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.3px;color:var(--muted)}
+.syn-col-hd.right{border-left:1px solid var(--border);color:var(--violet)}
+.syn-body{display:grid;grid-template-columns:1fr 1fr}
+.syn-col{padding:20px;display:flex;flex-direction:column;gap:12px}
+.syn-col.right{border-left:1px solid var(--border)}
+.syn-item{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--muted);line-height:1.55}
+.syn-dot{width:5px;height:5px;border-radius:50%;background:var(--border);flex-shrink:0;margin-top:6px}
+.syn-col.right .syn-dot{background:rgba(127,119,221,.4)}
+.syn-col.right .syn-item{color:var(--dark);font-weight:400}
+
+/* ── PROCESS WEEKS ───────────────────────────────────────── */
+#process-weeks{background:var(--bg)}
+.weeks-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px}
+.week-card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:28px 22px;position:relative;overflow:hidden}
+.week-card.c1{border-top:3px solid var(--violet)}
+.week-card.c2{border-top:3px solid var(--lav)}
+.week-card.c3{border-top:3px solid var(--amber)}
+.week-card.c4{border-top:3px solid var(--green)}
+.week-blob{position:absolute;width:120px;height:120px;border-radius:50%;top:-40px;right:-40px;opacity:.06}
+.week-card.c1 .week-blob{background:var(--violet)}
+.week-card.c2 .week-blob{background:var(--lav)}
+.week-card.c3 .week-blob{background:var(--amber)}
+.week-card.c4 .week-blob{background:var(--green)}
+.week-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);margin-bottom:12px;display:block}
+.week-card h3{font-size:14px;font-weight:700;color:var(--dark);margin-bottom:8px;line-height:1.4}
+.week-card p{font-size:12px;color:var(--muted);line-height:1.65}
+
+/* ── LESSONS ─────────────────────────────────────────────── */
+#lessons{background:var(--dark);padding:100px 48px}
+.lesson-list{display:flex;flex-direction:column;gap:0;margin-top:48px}
+.lesson-item{display:grid;grid-template-columns:56px 1fr 2fr;gap:24px;padding:28px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.lesson-item:last-child{border-bottom:none}
+.lesson-num{font-size:28px;font-weight:700;line-height:1;padding-top:2px}
+.lesson-num.ln1{color:rgba(127,119,221,.4)}.lesson-num.ln2{color:rgba(196,184,244,.4)}.lesson-num.ln3{color:rgba(239,159,39,.4)}.lesson-num.ln4{color:rgba(29,158,117,.4)}.lesson-num.ln5{color:rgba(232,112,106,.4)}.lesson-num.ln6{color:rgba(127,119,221,.3)}
+.lesson-title{font-size:15px;font-weight:700;color:#fff;line-height:1.4;padding-top:2px}
+.lesson-body{font-size:14px;font-weight:300;color:rgba(255,255,255,.5);line-height:1.7}
+
+/* ── OUTCOMES ────────────────────────────────────────────── */
+#outcomes{background:var(--bg)}
+.out-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:48px 0}
+.out-stat{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:32px 24px;text-align:center}
+.out-n{font-size:48px;font-weight:700;color:var(--dark);line-height:1;margin-bottom:8px}
+.out-l{font-size:13px;color:var(--muted);line-height:1.5}
+.out-video{position:relative;padding-top:56.25%;border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:0 24px 64px rgba(42,31,110,.12);margin-bottom:48px}
+.out-video iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+/* Success criteria */
+.sc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+.sc-card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:28px 24px;position:relative;overflow:hidden;transition:transform .3s ease,box-shadow .3s ease}
+.sc-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(42,31,110,.1)}
+.sc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.sc-time::before{background:var(--green)}
+.sc-ticket::before{background:var(--violet)}
+.sc-adoption::before{background:var(--amber)}
+.sc-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:14px;display:block}
+.sc-time .sc-tag{color:var(--green)}
+.sc-ticket .sc-tag{color:var(--violet)}
+.sc-adoption .sc-tag{color:var(--amber)}
+.sc-metric{font-size:32px;font-weight:700;color:var(--dark);line-height:1;margin-bottom:10px;letter-spacing:-1px}
+.sc-desc{font-size:13px;color:var(--muted);line-height:1.65}
+.sc-measure{margin-top:14px;padding-top:14px;border-top:1px solid var(--border);font-size:10px;color:var(--muted);opacity:.7;line-height:1.5}
+.sc-measure strong{color:var(--dark);font-weight:500;opacity:1}
+
+/* ── WHAT'S NEXT ─────────────────────────────────────────── */
+#next{background:var(--white);padding:100px 48px}
+.next-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+.next-h{font-size:clamp(24px,3vw,40px);font-weight:700;line-height:1.2;letter-spacing:-.5px;margin-bottom:20px}
+.next-h em{color:var(--violet);font-style:normal}
+.next-body{font-size:15px;font-weight:300;color:var(--muted);line-height:1.8}
+.next-body p+p{margin-top:14px}
+.next-card{background:var(--dark);border-radius:20px;padding:32px;overflow:hidden;position:relative}
+.next-card-eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.3px;color:var(--lav);margin-bottom:16px;display:block}
+.next-card h3{font-size:20px;font-weight:700;color:#fff;line-height:1.3;margin-bottom:16px}
+.next-card h3 em{color:var(--lav);font-style:normal}
+.next-items{display:flex;flex-direction:column;gap:10px;margin-top:20px}
+.next-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:rgba(255,255,255,.55);line-height:1.55}
+.next-item-dot{width:6px;height:6px;border-radius:50%;background:var(--lav);flex-shrink:0;margin-top:5px;opacity:.6}
+
+/* ── CONTACT ─────────────────────────────────────────────── */
+#contact{background:var(--dark);padding:100px 48px}
+.contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.contact-photo{width:100%;max-width:400px;border-radius:20px;object-fit:cover;aspect-ratio:4/5;display:block}
+.contact-photo-fallback{width:100%;max-width:400px;aspect-ratio:4/5;background:rgba(127,119,221,.12);border:1px solid rgba(127,119,221,.2);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:64px;color:var(--lav)}
+.contact-avail{display:inline-flex;align-items:center;gap:8px;background:rgba(29,158,117,.12);border:1px solid rgba(29,158,117,.25);border-radius:20px;padding:6px 14px;margin-bottom:24px}
+.avail-dot{width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse 2s ease-in-out infinite}
+.contact-avail span{font-size:12px;color:var(--green);font-weight:500}
+.contact-h{font-size:clamp(28px,3.5vw,48px);font-weight:700;color:#fff;line-height:1.1;letter-spacing:-.8px;margin-bottom:32px}
+.contact-h em{color:var(--lav);font-style:normal}
+.contact-links{display:flex;flex-direction:column;gap:10px;margin-bottom:32px}
+.contact-link{display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;text-decoration:none;transition:background .2s}
+.contact-link:hover{background:rgba(255,255,255,.08)}
+.contact-link-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.contact-link-icon.li{background:#0077B5}
+.contact-link-icon.em{background:var(--violet)}
+.contact-link-text{}
+.contact-link-label{font-size:11px;color:rgba(255,255,255,.35);margin-bottom:2px}
+.contact-link-val{font-size:14px;font-weight:500;color:#fff}
+.contact-link-arr{margin-left:auto;color:rgba(255,255,255,.2);font-size:16px}
+.contact-ctas{display:flex;gap:12px;flex-wrap:wrap}
+.cta-btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:10px;font-family:inherit;font-size:14px;font-weight:500;text-decoration:none;transition:background .2s,transform .2s}
+.cta-btn:hover{transform:translateY(-2px)}
+.cta-primary{background:var(--violet);color:#fff}
+.cta-primary:hover{background:#6a62c8}
+.cta-ghost{background:rgba(255,255,255,.07);color:#fff;border:1px solid rgba(255,255,255,.12)}
+.cta-ghost:hover{background:rgba(255,255,255,.12)}
+
+/* ── FOOTER ──────────────────────────────────────────────── */
+footer{background:#1a1247;border-top:1px solid rgba(255,255,255,.06);padding:32px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.foot-left{}
+.foot-name{font-size:14px;font-weight:700;color:#fff}
+.foot-sub{font-size:11px;color:rgba(255,255,255,.3);margin-top:2px}
+.foot-links{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.foot-links a{font-size:13px;color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s}
+.foot-links a:hover{color:rgba(255,255,255,.7)}
+.foot-proto{background:var(--violet);color:#fff;font-family:inherit;font-size:13px;font-weight:500;padding:9px 20px;border-radius:8px;text-decoration:none;transition:background .2s}
+.foot-proto:hover{background:#6a62c8}
+
+/* ── STEP IMAGE PANELS ───────────────────────────────────── */
+.step-screenshot{width:100%;display:block;border-radius:16px;border:1px solid var(--border);box-shadow:0 24px 64px rgba(42,31,110,.12);transition:transform .4s ease,box-shadow .4s ease}
+.step-screenshot:hover{transform:translateY(-4px) scale(1.01);box-shadow:0 32px 80px rgba(42,31,110,.18)}
+
+/* ── WIREFRAMES IMAGE ────────────────────────────────────── */
+.wireframe-img{width:100%;display:block;border-radius:16px;border:1px solid var(--border);box-shadow:0 12px 40px rgba(42,31,110,.08);transition:transform .4s ease}
+.wireframe-img:hover{transform:translateY(-3px)}
+
+/* ── CARD HOVER LIFTS ────────────────────────────────────── */
+.week-card{transition:transform .3s ease,box-shadow .3s ease}
+.week-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(42,31,110,.12)}
+.out-stat{transition:transform .3s ease,box-shadow .3s ease}
+.out-stat:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(42,31,110,.1)}
+.bench-card{transition:transform .3s ease,box-shadow .3s ease}
+.bench-card:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(42,31,110,.1)}
+.insight-card{transition:transform .3s ease,box-shadow .3s ease}
+.insight-card:hover{transform:translateY(-3px)}
+.pat{transition:transform .3s ease,background .3s ease}
+.pat:hover{transform:translateY(-3px);background:rgba(255,255,255,.08)}
+
+/* ── ANIMATED LABEL TAGS ─────────────────────────────────── */
+.label-tag{position:relative;display:inline-block}
+.r.on .label-tag::after{width:100%}
+
+/* ── DIVIDERS ────────────────────────────────────────────── */
+.divider{border:none;border-top:1px solid var(--border)}
+.dark-divider{border:none;border-top:1px solid rgba(255,255,255,.06)}
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+@media(max-width:900px){
+  section{padding:72px 24px}
+  nav{padding:0 24px}
+  .nav-links{display:none}
+  #hero{padding:96px 24px 64px}
+  .hero-meta{flex-wrap:wrap}
+  .meta-block{min-width:50%;flex:unset}
+  .context-inner,.research-grid,.design-two,.flags-two,.next-grid,.contact-inner,.synergy-grid{grid-template-columns:1fr}
+  .steps-flow,.weeks-grid{grid-template-columns:1fr 1fr}
+  .patterns-grid{grid-template-columns:1fr 1fr}
+  .lesson-item{grid-template-columns:40px 1fr;grid-template-rows:auto auto}
+  .lesson-body{grid-column:2}
+  .out-stats,.sc-grid{grid-template-columns:1fr}
+  .s1-layout{grid-template-columns:1fr}
+  .pq-section{padding:56px 24px}
+  /* Product carousel — 2 cols on tablet */
+  .flow-steps{grid-template-columns:1fr 1fr;gap:10px}
+}
+@media(max-width:600px){
+  .steps-flow,.weeks-grid,.brand-attrs,.direction-grid,.insight-cards{grid-template-columns:1fr}
+  .hero-h1{font-size:38px;letter-spacing:-1.5px}
+  footer{flex-direction:column;text-align:center}
+  /* Product carousel — horizontal scroll on mobile */
+  .flow-steps{
+    display:flex;
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    gap:10px;
+    padding-bottom:12px;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    /* hide scrollbar visually */
+    scrollbar-width:none;
+  }
+  .flow-steps::-webkit-scrollbar{display:none}
+  .flow-step{
+    flex:0 0 75vw;
+    max-width:280px;
+    scroll-snap-align:start;
+  }
+  .flow-step.active::after{display:none} /* skip progress bar animation on touch */
+  /* Step counter dots on mobile */
+  .step-dots{display:flex;justify-content:center;gap:6px;margin-top:16px;margin-bottom:24px}
+  .step-dot{width:6px;height:6px;border-radius:50%;background:var(--border);transition:background .2s}
+  .step-dot.active{background:var(--violet)}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="img/logo.png" alt="SprintMind">
+  </a>
+  <div class="nav-links">
+    <a href="#research">Research</a>
+    <a href="#design">Design</a>
+    <a href="#product">Product</a>
+    <a href="#lessons">Lessons</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="#contact" class="nav-cta">Work with me →</a>
+</nav>
+
+<!-- ── HERO ─────────────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-glow g1"></div>
+  <div class="hero-glow g2"></div>
+  <div class="hero-glow g3"></div>
+  <div class="hero-split">
+
+    <!-- Left: text -->
+    <div class="hero-inner">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-dot"></div>
+        <span>Case Study — SprintMind · B2B SaaS · AI Product</span>
+      </div>
+      <h1 class="hero-h1">From Figma link<br>to sprint-ready<br><em>in 2 minutes.</em></h1>
+      <p class="hero-sub">How I went from PM interviews to shipped product — and what the hardest problem taught me about designing AI tools people actually trust.</p>
+      <div class="hero-meta">
+        <div class="meta-block">
+          <div class="meta-lbl">Role</div>
+          <div class="meta-val">UX Strategist & PM</div>
+        </div>
+        <div class="meta-block">
+          <div class="meta-lbl">Duration</div>
+          <div class="meta-val">4 Weeks</div>
+        </div>
+        <div class="meta-block">
+          <div class="meta-lbl">Type</div>
+          <div class="meta-val">B2B SaaS</div>
+        </div>
+        <div class="meta-block">
+          <div class="meta-lbl">Prototype</div>
+          <div class="meta-val"><a href="https://www.figma.com/make/P472b7SXjYdtfeTOOyjo6a/SprintMind" target="_blank" style="color:var(--lav);text-decoration:none">Live ↗</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: product mockup -->
+    <div class="hero-mockup">
+      <div class="hero-mockup-float">
+        <div class="hero-mockup-frame">
+          <div class="hero-mockup-bar">
+            <div class="hero-mockup-dots">
+              <span></span><span></span><span></span>
+            </div>
+            <div class="hero-mockup-url">app.sprintmind.io</div>
+          </div>
+          <img src="img/product-step1.png" alt="SprintMind — Product overview">
+        </div>
+        <div class="hero-glow-pill">Figma link → reviewed backlog in 2 minutes</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    <span>Read the story</span>
+  </div>
+</section>
+
+<!-- ── CONTEXT ───────────────────────────────────────────── -->
+<section id="context">
+  <div class="container">
+    <div class="context-inner">
+      <div>
+        <span class="label-tag r">The Why</span>
+        <p class="context-q r d1">Why do PMs spend <em>6 hours</em> on work that should take minutes?</p>
+      </div>
+      <div class="context-body r d2">
+        <p>Before touching any design tool, I interviewed two PMs — one at a mid-size SaaS team, one at a scale-up. Both confirmed the same picture: every other Monday, Figma open, Jira open, a blank Notion doc open, and 4–5 hours of manual translation work before sprint planning could start.</p>
+        <p>They weren't slow. They were doing work that a tool should absorb. No product connected design intent to ticket structure. Jira doesn't read Figma. Figma doesn't write tickets. The PM was the bridge, every sprint, on their own.</p>
+        <div class="role-tag r d3">
+          <span>👤</span>
+          <span>UX Strategist & PM — ran research, defined product architecture, shipped the prototype</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PULL QUOTE ─────────────────────────────────────────── -->
+<div class="pq-section">
+  <div class="pq-inner r">
+    <div class="pq-mark">"</div>
+    <blockquote class="pq-text">By the time sprint planning starts, I've already spent half a day writing tickets. I'm translating design intent into engineering scope with no real signal — <em>just my best guess.</em></blockquote>
+    <div class="pq-source">
+      <div class="pq-dot"></div>
+      <span>Senior PM, mid-size SaaS team — Research Interview</span>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- ── DESIGN PROCESS ─────────────────────────────────────── -->
+ <!-- ── RESEARCH ──────────────────────────────────────────── -->
+<section id="research">
+  <div class="container">
+    <span class="label-tag r">01 / Research</span>
+    <h2 class="section-h r d1">2 interviews. 6 tools.<br><em>One gap nobody had closed.</em></h2>
+
+    <div class="research-grid">
+      <div class="research-text">
+        <p class="research-p">I started with two structured PM interviews. Both confirmed the same pattern: 4–5 hours per sprint lost to translation work, no reliable method for complete ticket decomposition, and context leaking between every tool.</p>
+        <p class="research-p">From there I benchmarked 6 tools — sprint planning, ticket generation, and design handoff. None connected design signals to engineering scope together. The interviews confirmed the pain. The benchmark confirmed the gap. SprintMind was the only possible answer to both.</p>
+        <span class="proc-tag" style="margin-top:20px;display:inline-block">User interviews + competitive analysis</span>
+      </div>
+      <div class="bench-card r d1">
+        <div class="bench-card-title">Competitive Benchmark — 6 Tools</div>
+        <table class="bench-table">
+          <thead>
+            <tr>
+              <th>Tool</th>
+              <th>Reads Figma</th>
+              <th>Generates tickets</th>
+              <th>Eng. context</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Linear</td><td class="bench-cross">—</td><td class="bench-partial">Partial</td><td class="bench-cross">—</td></tr>
+            <tr><td>Jira</td><td class="bench-cross">—</td><td class="bench-cross">—</td><td class="bench-cross">—</td></tr>
+            <tr><td>Notion AI</td><td class="bench-cross">—</td><td class="bench-partial">Partial</td><td class="bench-cross">—</td></tr>
+            <tr><td>Height</td><td class="bench-cross">—</td><td class="bench-partial">Partial</td><td class="bench-cross">—</td></tr>
+            <tr><td>Zeplin</td><td class="bench-check">✓</td><td class="bench-cross">—</td><td class="bench-cross">—</td></tr>
+            <tr class="hl"><td><strong>SprintMind</strong></td><td class="bench-check">✓</td><td class="bench-check">✓</td><td class="bench-check">✓</td></tr>
+          </tbody>
+        </table>
+      </div>
+     
+    </div>
+     <div class="insight-cards">
+          <div class="insight-card">
+            <div class="insight-card-lbl">Time Lost</div>
+            <div class="insight-card-val">4–5 hours per sprint on manual translation work before planning can start</div>
+          </div>
+          <div class="insight-card">
+            <div class="insight-card-lbl">Root Cause</div>
+            <div class="insight-card-val">No tool connects Figma design signals to engineering ticket scope</div>
+          </div>
+          <div class="insight-card">
+            <div class="insight-card-lbl">User Type</div>
+            <div class="insight-card-val">PM running 2-week sprints with a design-led engineering team</div>
+          </div>
+          <div class="insight-card">
+            <div class="insight-card-lbl">Key Finding</div>
+            <div class="insight-card-val">"I don't need AI to write the tickets. I need it to catch what I'd miss at 6pm on Thursday."</div>
+          </div>
+      </div>
+  </div>
+</section>
+
+<!-- ── THE DESIGN CHALLENGE ───────────────────────────────────── -->
+<section id="insight">
+  <div class="insight-inner">
+    <span class="insight-eyebrow r">02 / The Design Challenge</span>
+    <h2 class="insight-h r d1">How do you build an AI tool<br>that PMs <em>actually trust</em>?</h2>
+    <p class="insight-body r d2">Not one that generates output. Not one that looks impressive in a demo. One that a PM will use at 6pm on a Thursday when a sprint is tight and the stakes are real.</p>
+    <div class="insight-box r d3">
+      <p>"Trust isn't built by the AI being right. It's built by the AI being honest about where it isn't sure. Designing <em>I don't know states</em> turned out to be harder — and more important — than designing the generation itself."</p>
+      <cite>— The insight that reframed the entire product</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ── DESIGN PROCESS ─────────────────────────────────────────── -->
+<section id="design">
+  <div class="container">
+    <span class="label-tag r">03 / Design Process</span>
+    <h2 class="section-h r d1">Concept, wireframes,<br><em>token system, prototype.</em></h2>
+    <div class="proc-zigzag">
+      <!-- RESEARCH 
+      <div class="proc-zig r">
+        <div class="proc-text">
+          <div class="proc-phase-n">Research</div>
+          <h3 class="proc-h">2 interviews. 6 tools. One gap nobody had closed.</h3>
+          <p class="proc-p">I started with two structured PM interviews — one at a mid-size SaaS team, one at a scale-up. Both confirmed the same thing: 4–5 hours per sprint lost to translation work, no reliable method for complete ticket decomposition, and context leaking between every tool they used. From there, I benchmarked 6 tools across sprint planning, ticket generation, and design handoff. None connected design signals to engineering scope together. The interviews confirmed the pain. The benchmark confirmed the gap.</p>
+          <span class="proc-tag">User interviews + competitive analysis</span>
+        </div>
+        <div class="proc-visual">
+          <div class="bench">
+            <div class="bench-title">Competitive Benchmark — 6 Tools</div>
+            <table class="bench-table">
+              <thead>
+                <tr>
+                  <th>Tool</th>
+                  <th>Reads Figma</th>
+                  <th>Generates tickets</th>
+                  <th>Eng. context</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Linear</td><td class="bench-cross">—</td><td class="bench-partial">Partial</td><td class="bench-cross">—</td></tr>
+                <tr><td>Jira</td><td class="bench-cross">—</td><td class="bench-cross">—</td><td class="bench-cross">—</td></tr>
+                <tr><td>Notion AI</td><td class="bench-cross">—</td><td class="bench-partial">Partial</td><td class="bench-cross">—</td></tr>
+                <tr><td>Height</td><td class="bench-cross">—</td><td class="bench-partial">Partial</td><td class="bench-cross">—</td></tr>
+                <tr><td>Zeplin</td><td class="bench-check">✓</td><td class="bench-cross">—</td><td class="bench-cross">—</td></tr>
+                <tr class="highlight"><td>SprintMind</td><td class="bench-check">✓</td><td class="bench-check">✓</td><td class="bench-check">✓</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div> -->
+
+      <!-- CONCEPT -->
+      <div class="proc-zig flip r">
+        <div class="proc-text">
+          <div class="proc-phase-n">Concept</div>
+          <h3 class="proc-h">From word association to wireframe to visual direction</h3>
+          <p class="proc-p">Before designing any screen, I defined what SprintMind should <em>feel like</em>. Starting with word and concept association, four brand attributes emerged: Intelligent Speed, Trustworthy Precision, Invisible AI, and Bridge Builder. I then explored four visual directions — testing how each attribute translated into a real visual language. The combination of Warm Editorial and Holographic Light won: human enough to feel trusted, structural enough to feel intelligent. The first flows were sketched in Claude Artifacts, then refined into wireframes before any pixel-perfect work began.</p>
+          <span class="proc-tag">Brand concept + wireframes + visual direction</span>
+        </div>
+        <div class="proc-visual">
+          <div class="concept-vis">
+            <div class="concept-vis-title">Concept Progression</div>
+            <!-- Brand attributes -->
+            <div style="margin-bottom:14px">
+              <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:6px">Brand Attributes</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+                <div style="background:rgba(127,119,221,.08);border:1px solid rgba(127,119,221,.2);border-radius:8px;padding:8px 10px">
+                  <div style="font-size:9px;font-weight:700;color:var(--violet);margin-bottom:2px">01</div>
+                  <div style="font-size:11px;font-weight:600;color:var(--dark)">Intelligent Speed</div>
+                </div>
+                <div style="background:rgba(127,119,221,.08);border:1px solid rgba(127,119,221,.2);border-radius:8px;padding:8px 10px">
+                  <div style="font-size:9px;font-weight:700;color:var(--violet);margin-bottom:2px">02</div>
+                  <div style="font-size:11px;font-weight:600;color:var(--dark)">Trustworthy Precision</div>
+                </div>
+                <div style="background:rgba(127,119,221,.08);border:1px solid rgba(127,119,221,.2);border-radius:8px;padding:8px 10px">
+                  <div style="font-size:9px;font-weight:700;color:var(--violet);margin-bottom:2px">03</div>
+                  <div style="font-size:11px;font-weight:600;color:var(--dark)">Invisible AI</div>
+                </div>
+                <div style="background:rgba(127,119,221,.08);border:1px solid rgba(127,119,221,.2);border-radius:8px;padding:8px 10px">
+                  <div style="font-size:9px;font-weight:700;color:var(--violet);margin-bottom:2px">04</div>
+                  <div style="font-size:11px;font-weight:600;color:var(--dark)">Bridge Builder</div>
+                </div>
+              </div>
+            </div>
+            <!-- Visual directions -->
+            <div style="margin-bottom:14px">
+              <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:8px">4 Visual Directions Explored</div>
+              <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px">
+
+                <!-- Precision Dark -->
+                <div style="border-radius:8px;overflow:hidden;border:1px solid var(--border);position:relative">
+                  <img src="img/intelligent.png" alt="Intelligent Speed direction" style="width:100%;height:80px;object-fit:cover;display:block">
+                  <div style="padding:6px 8px;background:#fff">
+                    <div style="font-size:9px;font-weight:600;color:var(--muted)">Precision Dark</div>
+                  </div>
+                </div>
+
+                <!-- Warm Editorial — selected -->
+                <div style="border-radius:8px;overflow:hidden;border:2px solid var(--violet);position:relative">
+                  <img src="img/trustworthy.png" alt="Warm Editorial direction" style="width:100%;height:80px;object-fit:cover;display:block">
+                  <div style="position:absolute;top:6px;right:6px;background:var(--violet);color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:10px">✓</div>
+                  <div style="padding:6px 8px;background:#fff">
+                    <div style="font-size:9px;font-weight:700;color:var(--violet)">Warm Editorial</div>
+                  </div>
+                </div>
+
+                <!-- Clinical Futurism -->
+                <div style="border-radius:8px;overflow:hidden;border:1px solid var(--border);position:relative">
+                  <img src="img/spacecalm.png" alt="Clinical Futurism direction" style="width:100%;height:80px;object-fit:cover;display:block">
+                  <div style="padding:6px 8px;background:#fff">
+                    <div style="font-size:9px;font-weight:600;color:var(--muted)">Clinical Futurism</div>
+                  </div>
+                </div>
+
+                <!-- Holographic Light — selected -->
+                <div style="border-radius:8px;overflow:hidden;border:2px solid var(--violet);position:relative;background:linear-gradient(135deg,rgba(127,119,221,.25),rgba(196,184,244,.15))">
+                  <div style="height:80px;background:linear-gradient(135deg,rgba(127,119,221,.4),rgba(196,184,244,.3),rgba(42,31,110,.2));display:flex;align-items:center;justify-content:center">
+                    <div style="width:40px;height:40px;border-radius:50%;background:rgba(196,184,244,.4);border:1px solid rgba(196,184,244,.6)"></div>
+                  </div>
+                  <div style="position:absolute;top:6px;right:6px;background:var(--violet);color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:10px">✓</div>
+                  <div style="padding:6px 8px;background:#fff">
+                    <div style="font-size:9px;font-weight:700;color:var(--violet)">Holographic Light</div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <!-- Wireframe image -->
+            <div>
+              <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:6px">First Prototype — Lovable (7-step flow)</div>
+              <img src="img/wireframes.png" alt="Early wireframes — 7-step Lovable prototype" style="width:100%;border-radius:8px;border:1px solid var(--border);display:block">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DESIGN -->
+      <div class="proc-zig r">
+        <div class="proc-text">
+          <div class="proc-phase-n">Design</div>
+          <h3 class="proc-h">Token system locked. Then prototype. Then iterate.</h3>
+          <p class="proc-p">With the visual direction confirmed, I locked the design token system before building any screen — color, type, spacing, semantic states all defined first. The prototype followed a deliberate tool progression: first flows built in Claude Artifacts, interactive prototype in Lovable, final high-fidelity design in Figma Make. Each tool had a specific job, and each handoff was a forcing function to refine what wasn't working.</p>
+          <span class="proc-tag">Claude Artifacts → Lovable → Figma Make</span>
+        </div>
+        <div class="proc-visual" style="overflow:hidden">
+          <img src="img/landings.png" alt="SprintMind landing page visual direction explorations — Precision Dark, Warm Editorial, Clinical Futurism" style="width:100%;display:block">
+        </div>
+      </div>
+
+      <!-- TESTING -->
+      <div class="proc-zig flip r">
+        <div class="proc-text">
+          <div class="proc-phase-n">Testing</div>
+          <h3 class="proc-h">Three rounds. Two pivots. One insight that changed everything.</h3>
+          <p class="proc-p">Round 1 surfaced that the 7-step flow was too heavy — I was designing for completeness when the goal was speed. Collapsed to 4 steps. Round 2 asked the question I had no answer to: "What does the AI do when it doesn't know something?" That question became the flag system — the most important design decision in the product. Round 3 was a user testing session that restructured how the landing page proved its own claim.</p>
+          <span class="proc-tag">3 rounds of user testing + iteration</span>
+        </div>
+        <div class="proc-visual">
+          <div class="test-vis">
+            <div class="test-vis-title">Feedback Rounds</div>
+            <div class="test-round-card">
+              <div class="test-round-hdr"><span class="test-round-lbl">Round 1 — Internal</span><span class="test-round-outcome">→ Simplified inputs</span></div>
+              <div class="test-round-title">Flow felt "too technical"</div>
+              <div class="test-round-body">Cut 3 input fields. Added confidence bar as proxy for completeness.</div>
+            </div>
+            <div class="test-round-card">
+              <div class="test-round-hdr"><span class="test-round-lbl">Round 2 — Peer critique</span><span class="test-round-outcome">→ Flag system added</span></div>
+              <div class="test-round-title">"What does the AI do when it doesn't know something?"</div>
+              <div class="test-round-body">No answer — became the most important design decision in the project.</div>
+            </div>
+            <div class="test-round-card">
+              <div class="test-round-hdr"><span class="test-round-lbl">Round 3 — User testing</span><span class="test-round-outcome">→ Hierarchy + proof</span></div>
+              <div class="test-round-title">Proof before promise</div>
+              <div class="test-round-body">Visual hierarchy restructured — product screenshots moved above process illustrations.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── THE PRODUCT ───────────────────────────────────────────── -->
+<section id="product">
+  <div class="container">
+    <span class="label-tag r">04 / The Product</span>
+    <h2 class="section-h r d1">A 4-step flow from<br><em>Figma link to Jira export.</em></h2>
+    <div class="flow-steps r">
+      <div class="flow-step active" data-step="1">
+        <div class="flow-step-n">Step 01</div>
+        <h3>Connect</h3>
+        <p>Link your Figma file and describe the sprint context, goals, and constraints.</p>
+      </div>
+      <div class="flow-step" data-step="2">
+        <div class="flow-step-n">Step 02</div>
+        <h3>Scope</h3>
+        <p>AI reads your designs and generates a structured breakdown of each ticket.</p>
+      </div>
+      <div class="flow-step" data-step="3">
+        <div class="flow-step-n">Step 03</div>
+        <h3>Review</h3>
+        <p>Edit, flag, and validate tickets with confidence scores and missing state alerts.</p>
+      </div>
+      <div class="flow-step" data-step="4">
+        <div class="flow-step-n">Step 04</div>
+        <h3>Export</h3>
+        <p>Push reviewed, approved tickets directly to Jira with one click.</p>
+      </div>
+    </div>
+    <div class="step-mockups r">
+      <div class="step-panel active" id="panel-1">
+        <div class="mockup">
+          <div class="mockup-bar">
+            <div class="m-dots"><div class="m-dot r"></div><div class="m-dot y"></div><div class="m-dot g"></div></div>
+            <div class="m-url">app.sprintmind.io/connect</div>
+          </div>
+          <img src="img/product-step1.png" alt="SprintMind — Connect" style="width:100%;display:block">
+        </div>
+      </div>
+      <div class="step-panel" id="panel-2">
+        <div class="mockup">
+          <div class="mockup-bar">
+            <div class="m-dots"><div class="m-dot r"></div><div class="m-dot y"></div><div class="m-dot g"></div></div>
+            <div class="m-url">app.sprintmind.io/scope</div>
+          </div>
+          <img src="img/product-step2.png" alt="SprintMind — Scope" style="width:100%;display:block">
+        </div>
+      </div>
+      <div class="step-panel" id="panel-3">
+        <div class="mockup">
+          <div class="mockup-bar">
+            <div class="m-dots"><div class="m-dot r"></div><div class="m-dot y"></div><div class="m-dot g"></div></div>
+            <div class="m-url">app.sprintmind.io/review</div>
+          </div>
+          <img src="img/product-step3.png" alt="SprintMind — Review" style="width:100%;display:block">
+        </div>
+      </div>
+      <div class="step-panel" id="panel-4">
+        <div class="mockup">
+          <div class="mockup-bar">
+            <div class="m-dots"><div class="m-dot r"></div><div class="m-dot y"></div><div class="m-dot g"></div></div>
+            <div class="m-url">app.sprintmind.io/export</div>
+          </div>
+          <img src="img/product-step4.png" alt="SprintMind — Export" style="width:100%;display:block">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── KEY DECISION ───────────────────────────────────────────── -->
+<section id="flags">
+  <div class="container">
+      <div>
+        <span class="label-tag lt r">04 / The Key Decision</span>
+        <h2 class="flags-h r d1">The flag system wasn't in<br>the original design.<br><em>It was the critique that changed everything.</em></h2>
+        <p class="flags-body r d2">After the first prototype review, a peer pointed out something I had rationalized away: the AI would sometimes generate a ticket for a screen that had no error state defined. The output would look correct, but it would silently block development.</p>
+        <p class="flags-body r d3">Every other tool in the benchmark showed a result and stopped. I decided SprintMind should show a result and a confidence score — surfacing the 41% as clearly as the 94%. That honesty is what earns the PM's trust. Hiding uncertainty would have been a design failure disguised as polish.</p>
+        <div class="flags-quote r d4 mb-5">
+          <p>"The wow moment gets the demo. The flags get the trust. You need both."</p>
+          <cite>— Learned during user testing</cite>
+        </div>
+      </div>
+      <!-- Step 3 Mockup — real product screenshot -->
+      <div class="mockup r" style="margin-top: 64px; margin-bottom:64px">
+        <div class="mockup-bar">
+          <div class="m-dots"><div class="m-dot r"></div><div class="m-dot y"></div><div class="m-dot g"></div></div>
+          <div class="m-url">app.sprintmind.io/review</div>
+        </div>
+        <img src="img/product-step3.png" alt="SprintMind — Review backlog with critical flags" style="width:100%;display:block">
+      </div>
+
+        <!-- 7 Patterns -->
+        <div class="patterns-wrap r">
+          <div class="label-tag lt r d1" style="margin-bottom:20px;display:block">The 7 AI UX Patterns Behind It</div>
+            <div class="patterns-grid">
+              <div class="pat"><div class="pat-n">P01</div><div class="pat-name">Confidence Indicator</div><div class="pat-desc">0% / 41% / 87% gate controls when generation unlocks.</div></div>
+              <div class="pat"><div class="pat-n">P02</div><div class="pat-name">Editable Output</div><div class="pat-desc">Every ticket editable inline — AI proposes, human approves.</div></div>
+              <div class="pat"><div class="pat-n">P03</div><div class="pat-name">Active Clarification</div><div class="pat-desc">AI asks targeted questions when context is insufficient.</div></div>
+              <div class="pat"><div class="pat-n">P04</div><div class="pat-name">Explainability</div><div class="pat-desc">Every flag shows the source — which design gap triggered it.</div></div>
+              <div class="pat"><div class="pat-n">P05</div><div class="pat-name">Feedback Loops</div><div class="pat-desc">Edits tracked across sprints to improve future generations.</div></div>
+              <div class="pat"><div class="pat-n">P06</div><div class="pat-name">Smart Defaults</div><div class="pat-desc">Story points, priority, type pre-filled from design signals.</div></div>
+              <div class="pat"><div class="pat-n">P07</div><div class="pat-name">Human Handoff</div><div class="pat-desc">Export gate stays locked until critical flags are resolved.</div></div>
+            </div>
+        </div>
+  </div>
+</section>
+
+
+<!-- ── AI & JUDGEMENT ─────────────────────────────────────── -->
+<section id="synergy">
+  <div class="container">
+    <div class="synergy-top">
+      <span class="label-tag r">05 / AI and Judgement</span>
+      <h2 class="section-h r d1">The product's core principle<br><em class="coral">became my rule for using AI.</em></h2>
+      <p class="section-p r d2">SprintMind's principle: the AI suggests, the PM decides. Nothing commits without a human review. Working on it, I noticed the same dynamic governed my own process. The AI was fast at everything that drained me. The judgement stayed mine.</p>
+    </div>
+
+    <div class="synergy-grid">
+      <div class="syn-table r d1">
+        <div class="syn-header">
+          <div class="syn-col-hd">AI Did</div>
+          <div class="syn-col-hd right">I Decided</div>
+        </div>
+        <div class="syn-body">
+          <div class="syn-col">
+            <div class="syn-item"><span class="syn-dot"></span>Structured the competitive research and surfaced gaps I hadn't looked for</div>
+            <div class="syn-item"><span class="syn-dot"></span>Proposed the initial 7-step flow and drafted the PRD</div>
+            <div class="syn-item"><span class="syn-dot"></span>Generated wireframe concepts and visual directions</div>
+            <div class="syn-item"><span class="syn-dot"></span>Wrote ticket schemas, acceptance criteria, and copy</div>
+            <div class="syn-item"><span class="syn-dot"></span>Built the prototype from a brand board and a precise prompt</div>
+          </div>
+          <div class="syn-col right">
+            <div class="syn-item"><span class="syn-dot"></span>The product vision — and which competitive signal actually mattered</div>
+            <div class="syn-item"><span class="syn-dot"></span>Which tool to use for which job, and when to switch</div>
+            <div class="syn-item"><span class="syn-dot"></span>The 87% confidence threshold and what counts as a flag</div>
+            <div class="syn-item"><span class="syn-dot"></span>The export gate — nothing leaves without a resolved flag</div>
+            <div class="syn-item"><span class="syn-dot"></span>What to cut when 7 steps had too much decision fatigue</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="r d2">
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:28px">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--violet);margin-bottom:20px">The AI Tool Stack</div>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div style="display:flex;align-items:flex-start;gap:14px">
+              <div style="width:40px;height:40px;background:var(--white);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:var(--violet);flex-shrink:0">C</div>
+              <div>
+                <div style="font-size:13px;font-weight:600;color:var(--dark);margin-bottom:3px">Claude</div>
+                <div style="font-size:12px;color:var(--muted);line-height:1.5">Research synthesis, PRD drafting, product architecture, copy. Also forgot a job title twice.</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:14px">
+              <div style="width:40px;height:40px;background:var(--white);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:var(--dark);flex-shrink:0">GP</div>
+              <div>
+                <div style="font-size:13px;font-weight:600;color:var(--dark);margin-bottom:3px">ChatGPT</div>
+                <div style="font-size:12px;color:var(--muted);line-height:1.5">Wireframe concepts and visual directions. Beat Claude here — opened directions I hadn't considered.</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:14px">
+              <div style="width:40px;height:40px;background:var(--white);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;color:var(--amber);flex-shrink:0">MJ</div>
+              <div>
+                <div style="font-size:13px;font-weight:600;color:var(--dark);margin-bottom:3px">Figma Weave</div>
+                <div style="font-size:12px;color:var(--muted);line-height:1.5">Visual tone and brand imagery. Rewarded evocative language over rigid specs.</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:14px">
+              <div style="width:40px;height:40px;background:var(--white);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;color:var(--green);flex-shrink:0">FM</div>
+              <div>
+                <div style="font-size:13px;font-weight:600;color:var(--dark);margin-bottom:3px">Figma Make</div>
+                <div style="font-size:12px;color:var(--muted);line-height:1.5">Prototype from one precise prompt + vision board. Jumped in quality with a brand reference.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROCESS WEEKS ──────────────────────────────────────── -->
+<section id="process-weeks">
+  <div class="container">
+    <span class="label-tag r">06 / How It Was Built</span>
+    <h2 class="section-h r d1">4 weeks.<br><em>A different AI tool for each job.</em></h2>
+    <p class="section-p r d2">No single AI tool did everything. Claude held the research and writing. ChatGPT proved stronger for wireframe concepts. Midjourney refined the visual tone. Figma Make shipped the prototype once I had a precise prompt and a working vision board.</p>
+
+    <div class="weeks-grid">
+      <div class="week-card c1 r">
+        <div class="week-blob"></div>
+        <span class="week-tag">Week 1</span>
+        <h3>Two PM interviews reset my whole problem definition.</h3>
+        <p>I went in thinking the problem was ticket quality. PMs told me it was time. That single shift changed the product's success metric, the flow, and what "done" meant.</p>
+      </div>
+      <div class="week-card c2 r d1">
+        <div class="week-blob"></div>
+        <span class="week-tag">Week 2</span>
+        <h3>Claude structured the research and the product architecture.</h3>
+        <p>Synthesized 2 hours of notes into a clean problem frame and drafted the PRD. That same week it forgot a user's job title twice and invented a competitor that doesn't exist.</p>
+      </div>
+      <div class="week-card c3 r d2">
+        <div class="week-blob"></div>
+        <span class="week-tag">Week 3</span>
+        <h3>ChatGPT beat Claude on wireframes. Midjourney set the visual tone.</h3>
+        <p>ChatGPT opened UX directions I hadn't considered. The logo fought me all week. Described the outcome, not the component — that's when it clicked.</p>
+      </div>
+      <div class="week-card c4 r d3">
+        <div class="week-blob"></div>
+        <span class="week-tag">Week 4</span>
+        <h3>One precise prompt and a vision board shipped the prototype.</h3>
+        <p>Figma Make jumped in quality the moment I gave it a brand reference and a clear goal. The prototype landed at a high level on the first try.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── LESSONS ────────────────────────────────────────────── -->
+<section id="lessons">
+  <div class="container">
+    <span class="label-tag lt r">07 / What I Learned</span>
+    <h2 class="section-h r d1" style="color:#fff">Six things this build<br><em>taught me.</em></h2>
+
+    <div class="lesson-list">
+      <div class="lesson-item r">
+        <div class="lesson-num ln1">01</div>
+        <div class="lesson-title">Talk to users before opening any design tool.</div>
+        <div class="lesson-body">I thought I understood the problem from the brief. Two 45-minute interviews completely reframed it. The tool was never the constraint — time was. That shift changed the product's success metric, the flow, and what "done" meant.</div>
+      </div>
+      <div class="lesson-item r">
+        <div class="lesson-num ln2">02</div>
+        <div class="lesson-title">The uncertainty IS the feature.</div>
+        <div class="lesson-body">Every competing tool shows a result and stops. SprintMind shows a result and a confidence score. That honesty — surfacing the 41% as clearly as the 94% — is what earns trust. Hiding uncertainty would have been a design failure disguised as polish.</div>
+      </div>
+      <div class="lesson-item r">
+        <div class="lesson-num ln3">03</div>
+        <div class="lesson-title">Describe the outcome, not the component.</div>
+        <div class="lesson-body">Prompting with rigid structure specs produced brittle outputs. Describing the feeling, the use case, and the context produced things I could actually build from. This applied to every tool, but Midjourney especially rewarded evocative language.</div>
+      </div>
+      <div class="lesson-item r">
+        <div class="lesson-num ln4">04</div>
+        <div class="lesson-title">The basics still need watching.</div>
+        <div class="lesson-body">Claude forgot a user's job title twice, invented a competitor, and wrote in German after I'd asked for English. None of that was fatal, but it means reading the output like an editor. Knowing when to trust the first draft and when to rerun the prompt is its own skill.</div>
+      </div>
+      <div class="lesson-item r">
+        <div class="lesson-num ln5">05</div>
+        <div class="lesson-title">The wow gets attention. The flags get adoption.</div>
+        <div class="lesson-body">Everyone's first reaction to SprintMind is the 2-minute backlog. But PMs who engaged longer pointed to the flag system as the reason they'd actually use it. You need both — the hook and the trust mechanism.</div>
+      </div>
+      <div class="lesson-item r">
+        <div class="lesson-num ln6">06</div>
+        <div class="lesson-title">Surgical cuts beat full redesigns.</div>
+        <div class="lesson-body">The original 7-step flow had too much sequential decision work. Steps 5 and 6 were really one screen — scope and review belong together. Recognizing that mid-build and making a precise cut instead of redesigning the whole flow is where design judgment earns its keep.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── OUTCOMES ───────────────────────────────────────────── -->
+<section id="outcomes">
+  <div class="container">
+    <span class="label-tag r">08 / Results</span>
+    <h2 class="section-h r d1">A working MVP.<br><em>Shipped in 4 weeks.</em></h2>
+
+    <div class="sc-grid">
+      <div class="sc-card sc-time r">
+        <span class="sc-tag">Time Saved</span>
+        <div class="sc-metric">&lt; 2 min</div>
+        <div class="sc-desc">From Figma link to export-ready backlog — measured from prototype testing session</div>
+        <div class="sc-measure"><strong>Baseline:</strong> 4–5 hrs manual per sprint · <strong>Target:</strong> Under 5 min · <strong>Result:</strong> 2 min avg</div>
+      </div>
+      <div class="sc-card sc-ticket r d1">
+        <span class="sc-tag">Ticket Quality</span>
+        <div class="sc-metric">0 gaps</div>
+        <div class="sc-desc">Zero missing edge cases in flagged and resolved tickets during user test</div>
+        <div class="sc-measure"><strong>Baseline:</strong> Missed states found post-dev · <strong>Target:</strong> Flags catch it pre-export · <strong>Result:</strong> ✓</div>
+      </div>
+      <div class="sc-card sc-adoption r d2">
+        <span class="sc-tag">Prototype Fidelity</span>
+        <div class="sc-metric">7 flows</div>
+        <div class="sc-desc">Interactive prototype with confidence gate, flag system, inline edit, and Jira export</div>
+        <div class="sc-measure"><strong>Target:</strong> Demonstrate full PM workflow end-to-end · <strong>Result:</strong> Shipped in Figma Make</div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:48px" class="r">
+      <a href="https://www.figma.com/make/P472b7SXjYdtfeTOOyjo6a/SprintMind" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--dark);color:#fff;font-family:inherit;font-size:15px;font-weight:500;padding:14px 32px;border-radius:10px;text-decoration:none">
+        View live prototype ↗
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHAT'S NEXT ─────────────────────────────────────────── -->
+<section id="next">
+  <div class="container">
+    <div class="next-grid">
+      <div>
+        <span class="label-tag r">09 / What's Next</span>
+        <h2 class="next-h r d1">The open problem<br><em>is already visible.</em></h2>
+        <div class="next-body r d2">
+          <p>The review step needs to be streamlined to reduce decision fatigue across a long backlog. That's the right problem to have after a first MVP — it means the core flow works, and the edge is now about depth, not breadth.</p>
+          <p>The tools compressed the slow parts of the work — the research piles, the first-draft redrafts, the layout scaffolding — freeing my attention for the parts that actually needed a person. Pick the right tool, let it carry what it carries well, and keep the decisions human.</p>
+        </div>
+      </div>
+      <div class="next-card r d2">
+        <span class="next-card-eyebrow">On the roadmap</span>
+        <h3>A tighter product with<br><em>deeper integrations.</em></h3>
+        <div class="next-items">
+          <div class="next-item"><div class="next-item-dot"></div><span>Merge Scope + Review into one surface — two tabs, one decision</span></div>
+          <div class="next-item"><div class="next-item-dot"></div><span>Native Jira write integration — push directly to board structure</span></div>
+          <div class="next-item"><div class="next-item-dot"></div><span>Sprint memory layer — system learns how <em>this team</em> works, sprint over sprint</span></div>
+          <div class="next-item"><div class="next-item-dot"></div><span>Velocity calibration — story point estimates that improve over time</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ────────────────────────────────────────────── -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="r">
+        <img src="img/photo.png" alt="Janis Correa" class="contact-photo"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="contact-photo-fallback" style="display:none">👤</div>
+      </div>
+      <div>
+        <div class="contact-avail r">
+          <div class="avail-dot"></div>
+          <span>Available for freelance projects</span>
+        </div>
+        <h2 class="contact-h r d1">Let's build something<br><em>worth shipping.</em></h2>
+        
+        <div class="contact-ctas r d3">
+          <a href="mailto:janis1891@gmail.com" class="cta-btn cta-primary">Send me a message →</a>
+          <a href="https://www.linkedin.com/in/janyn-correa/" target="_blank" class="cta-btn cta-ghost">View LinkedIn ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────── -->
+<footer>
+  <div class="foot-left">
+    <div class="foot-name">Janyn Correa</div>
+    <div class="foot-sub">UX Strategist & Product Manager</div>
+  </div>
+  <div class="foot-links">
+    <a href="figma.com/proto/xtOO1VTbJBvh7wk34gUAu8/Janyn-Correa-Portfolio?node-id=1-4538&fuid=954422772114029073">Portfolio</a>
+    <a href="https://www.linkedin.com/in/janyn-correa/" target="_blank">LinkedIn</a>
+    <a href="mailto:janis1891@gmail.com">Email</a>
+  </div>
+  <a href="https://www.figma.com/make/P472b7SXjYdtfeTOOyjo6a/SprintMind" target="_blank" class="foot-proto">View prototype ↗</a>
+</footer>
+
+<script>
+// ── Scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.r').forEach(el => obs.observe(el));
+
+// ── Step tab switching with auto-rotate (exact from index.html)
+let autoTimer;
+const tabs = document.querySelectorAll('.flow-step');
+const panels = document.querySelectorAll('.step-panel');
+
+function goToStep(n) {
+  tabs.forEach(t => t.classList.remove('active'));
+  panels.forEach(p => p.classList.remove('active'));
+  tabs[n].classList.add('active');
+  panels[n].classList.add('active');
+}
+
+function startAuto() {
+  autoTimer = setInterval(() => {
+    const current = [...tabs].findIndex(t => t.classList.contains('active'));
+    goToStep((current + 1) % tabs.length);
+  }, 3000);
+}
+
+function resetAuto() {
+  clearInterval(autoTimer);
+  startAuto();
+}
+
+tabs.forEach((tab, i) => {
+  tab.addEventListener('click', () => { goToStep(i); resetAuto(); });
+});
+
+// Start / stop auto-rotate as section enters / leaves viewport
+const productSection = document.getElementById('product');
+if (productSection) {
+  new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { startAuto(); }
+      else { clearInterval(autoTimer); }
+    });
+  }, { threshold: 0.2 }).observe(productSection);
+}
+
+// ── Count-up animation
+const countObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting && e.target.dataset.count) {
+      const el = e.target;
+      const target = +el.dataset.count;
+      const suffix = el.dataset.suffix || '';
+      const dur = 1400; const start = performance.now();
+      const update = now => {
+        const p = Math.min((now - start) / dur, 1);
+        const ease = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(ease * target) + suffix;
+        if (p < 1) requestAnimationFrame(update);
+      };
+      requestAnimationFrame(update);
+      countObs.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-count]').forEach(el => countObs.observe(el));
+
+// ── Parallax subtle effect on hero mockup
+const heroMockup = document.querySelector('.hero-mockup-float');
+if (heroMockup) {
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    const shift = Math.min(y * 0.08, 40);
+    heroMockup.style.transform = `translateY(calc(-12px * var(--float-phase, 0) + ${shift * -1}px))`;
+  }, { passive: true });
+}
+
+// ── Animated highlight on bench table winner row
+const highlightRow = document.querySelector('.bench-table tr.hl');
+if (highlightRow) {
+  const rowObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        setTimeout(() => {
+          e.target.style.transition = 'background .6s ease';
+          e.target.style.background = 'rgba(127,119,221,.14)';
+        }, 400);
+        rowObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 1 });
+  rowObs.observe(highlightRow);
+}
+</script>
+</body>
+</html>
